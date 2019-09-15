@@ -1,0 +1,26 @@
+---
+title: "Project.rmd"
+author: "Danish"
+date: "February 25, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#uploading Dataset into R-studio
+data<-read.csv("C:/Users/DANISH/Desktop/project_sem2/SMBA_project1/project1_data.csv")
+```
+
+```{r}
+#checking for any missing values
+sum(is.na(data))
+
+#Data summary
+summary(data)
+str(data)
+
+```
+

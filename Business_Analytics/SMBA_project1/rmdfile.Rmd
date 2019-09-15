@@ -1,0 +1,41 @@
+---
+title: "Untitled"
+author: "Danish"
+date: "February 25, 2019"
+output: 
+  html_document: 
+    toc: yes
+---
+
+```{r}
+data<-read.csv("C:/Users/DANISH/Desktop/project_sem2/SMBA_project1/project1_data.csv")
+```
+
+```{r}
+attach(data.final)
+
+model4<-lm(Y.house.price.of.unit.area~X4.number.of.convenience.stores)
+```
+
+
+```{r}
+
+library(jtools)
+library(kableExtra)
+library(huxtable)
+summ(model4)
+
+effect_plot(model4, pred = X4.number.of.convenience.stores, interval = TRUE, plot.points = TRUE,
+            colors="blue")
+```
+
+```{r}
+export_summs(model4, scale = TRUE)
+```
+
+```{r}
+library(knitr)
+library(kableExtra)
+summ(model4)
+```
+
