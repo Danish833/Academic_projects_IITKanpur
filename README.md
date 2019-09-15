@@ -1,5 +1,5 @@
 # Academic_projects_IITKanpur <br>
-<h4 col="blue">This repository contain projects done in IIT kanpur under the faculty of respective courses</h4>
+<h4 style="color:blue">This repository contain projects done in IIT kanpur under the faculty of respective courses</h4>
 <ul>
   <li>Data mining</li>
   <li>Statistical Modeling for Business Analytics</li>
