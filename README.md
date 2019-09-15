@@ -9,9 +9,9 @@
   <li>Decision Support System</li>
   <li>SQL</li>
 </ul>
-<ul>
-It includes <br>
-  <li>Project Report</li> <br>
-  <li>Project PPT</li><br>
+Every Project Folder includes:
+<ul> 
+  <li>Project Report</li> 
+  <li>Project PPT</li>
   <li>Project code in (R/python/SQL/SPSS)</li>
 </ul>
