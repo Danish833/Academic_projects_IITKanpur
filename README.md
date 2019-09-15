@@ -9,7 +9,8 @@
   <li>Decision Support System</li>
   <li>SQL</li>
 </ul>
-It includes <br>
-1)Project Report <br>
-2)Project PPT<br>
-3)Project code in (R/python/SQL/SPSS)
+<ol>It includes <br>
+  <li>Project Report</li> <br>
+  <li>Project PPT</li><br>
+  <li>Project code in (R/python/SQL/SPSS)</li>
+</ol>
