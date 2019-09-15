@@ -1,0 +1,100 @@
+```{r}
+##Retriving the data from all tables
+
+Trainingapp <- read.csv("C:/Users/bahul dandona/Downloads/DataMining_Project/application_train.csv")
+#Prevapp <- read.csv(file.choose())
+#Bureau <- read.csv(file.choose())
+#Bureaubalance <- read.csv(file.choose())
+#Creditcardbalance <- read.csv(file.choose())
+#Instalment <- read.csv(file.choose())
+#POSCASH <- read.csv(file.choose())
+
+##Missing value count of all data files
+
+sapply(Trainingapp, function(x)(sum(is.na(x))))
+#sapply(Prevapp, function(x)(sum(is.na(x)))) 
+#sapply(Bureau, function(x)(sum(is.na(x)))) 
+#sapply(Bureaubalance, function(x)(sum(is.na(x)))) 
+#sapply(Creditcardbalance, function(x)(sum(is.na(x)))) 
+#sapply(Instalment, function(x)(sum(is.na(x)))) 
+#sapply(POSCASH, function(x)(sum(is.na(x)))) 
+
+summary(Trainingapp)
+```
+
+```{r}
+## Distribution of relevant numeric columns
+
+# Trainingapp$AMT_INCOME_TOTAL
+
+hist(Trainingapp$AMT_INCOME_TOTAL)
+
+# Outlier treatment
+
+boxplot(Trainingapp$AMT_INCOME_TOTAL)
+IQR = quantile(Trainingapp$AMT_INCOME_TOTAL,0.75)-quantile(Trainingapp$AMT_INCOME_TOTAL,0.25)
+
+q3=quantile(Trainingapp$AMT_INCOME_TOTAL,0.75)
+q1=quantile(Trainingapp$AMT_INCOME_TOTAL,0.25)
+
+max = q3+(1.5*IQR)
+min = q1-(1.5*IQR)
+
+Trainingapp$AMT_INCOME_TOTAL = ifelse(Trainingapp$AMT_INCOME_TOTAL > max,
+                                            mean(Trainingapp$AMT_INCOME_TOTAL),
+                                      Trainingapp$AMT_INCOME_TOTAL)
+
+hist(Trainingapp$AMT_INCOME_TOTAL)
+boxplot(Trainingapp$AMT_INCOME_TOTAL)
+```
+```{r}
+# Loan Credit Amount Distribution
+hist(Trainingapp$AMT_CREDIT,main = "Histogram of Credit Amount of Loan" ,col="blue",xlab = "Credit Amount of Loan" )
+# Client Income Distribution
+hist(Trainingapp$AMT_INCOME_TOTAL,main = "Distribution of Income of Client" ,col="blue",xlab = "Income of Client" )
+# Distribution of price of Goods
+hist(Trainingapp$AMT_GOODS_PRICE,main = "Distribution of Price of Goods" ,col="blue",xlab = "Price of Goods")
+
+```
+```{r}
+#Who Accompanied Client
+
+Trainingapp1 <- Trainingapp[-which(Trainingapp$NAME_TYPE_SUITE == ""),]
+counts <- table(Trainingapp1$NAME_TYPE_SUITE)
+barplot(round(100*counts/sum(counts), 1),width = 1,space = 0.9,xlab="Reason",ylab="Percent",main="Who Accompanied Client",col="blue")
+grid()
+
+
+```
+
+```{r}
+#Loan Repayed or Not
+
+labels <- c("Loan Repayed", "Loan Not Repayed ")
+mytable1 = table(Trainingapp$TARGET)
+piepercent<- round(100*mytable1/sum(mytable1), 1)
+pie(mytable1,labels = piepercent, main = "Loan Repayed or Not",col = rainbow(length(mytable1)))
+legend(1.1, c("Loan Repayed", "Loan Not Repayed "), cex = 0.8,
+       fill = rainbow(length(mytable1)))
+
+```
+```{r}
+
+rm(Trainingapp)
+rm(Trainingapp1)
+rm(counts)
+rm(labels)
+rm(mytable1)
+rm(piepercent)
+rm(coun)
+rm(IQR)
+rm(max)
+rm(min)
+rm(mytable)
+rm(mytable2)
+rm(mytable3)
+rm(q1)
+rm(q3)
+```
+
+

@@ -1,0 +1,29 @@
+```{r}
+train_data<-read.csv("C:/Users/bahul dandona/Downloads/DataMining_Project/application_train.csv")
+```
+
+```{r}
+#Summary of birth-date
+summary(train_data$DAYS_BIRTH)
+
+hist((train_data$DAYS_BIRTH)/-365,col="cyan",
+     main="Age distribution",border="red")
+```
+```{r}
+
+#Summary of Employed days and Anamoly detection on days_employed
+
+
+summary(train_data$DAYS_EMPLOYED)
+
+hist(train_data$DAYS_EMPLOYED,col="blue",
+     main="Distrubution of Days Employed")
+```
+
+```{r}
+train_data_new<-train_data %>% filter(DAYS_EMPLOYED!=365243)
+
+hist(train_data_new$DAYS_EMPLOYED,col="blue",main="Distribution of Days Employed",
+     sub="More aged person is found",col.main="red",border="green")
+```
+

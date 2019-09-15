@@ -1,0 +1,11 @@
+```{r}
+application_trainData = read.csv("C:/Users/bahul dandona/Downloads/DataMining_Project/application_train.csv")
+```
+
+```{r}
+  counts <- table(application_trainData$TARGET,application_trainData$NAME_INCOME_TYPE)
+  barplot(round(100*counts/sum(counts), 1),width = 1,space = 0.9,xlab="Income Source",ylab="Count %",main="Income sources of Applicant's in terms of loan is repayed or not  in %",col=c("blue","red"))
+  grid()
+  
+```
+

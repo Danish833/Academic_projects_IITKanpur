@@ -1,0 +1,128 @@
+```{r}
+install.packages("plotrix")
+library(plotrix)
+
+```
+
+```{r}
+application_trainData = read.csv("C:/Users/bahul dandona/Downloads/DataMining_Project/application_train.csv")
+```
+
+```{r}
+mytable = table(application_trainData$TARGET)
+piepercent<- round(100*mytable/sum(mytable), 1)
+
+pie3D(mytable,labels=piepercent,explode=0.1,
+      main="Loan repayed or not")
+```
+```{r}
+#Type of loan
+
+# Cash Loans
+# Revolving Loans
+
+levels(application_trainData$NAME_CONTRACT_TYPE)
+LoanTypelabels = c("Cash Loans", "Revolving loans")
+
+LoanTypeTable = table(application_trainData$NAME_CONTRACT_TYPE)
+LoanTypepiepercent = round(100*LoanTypeTable/sum(LoanTypeTable), 1)
+
+pie(LoanTypeTable,labels = LoanTypepiepercent, main = "Type of Loan",col = rainbow(length(LoanTypeTable)))
+legend("topleft", c("Cash Loans", "Revolving loans"), cex = 0.8, fill = rainbow(length(LoanTypeTable)))
+
+rm(LoanTypelabels)
+rm(LoanTypepiepercent)
+rm(LoanTypeTable)
+
+```
+
+```{r}
+#Income source of applicant
+
+# Cash Loans
+# Revolving Loans
+
+levels(application_trainData$NAME_INCOME_TYPE)
+IncomeSourcelabels = c("Businessman", "Commercial associate","Maternity leave","Pensioner",
+                       "State servant","Student","Unemployed", "Working")
+
+IncomeSourceTable = table(application_trainData$NAME_INCOME_TYPE)
+IncomeSourcepiepercent = round(100*IncomeSourceTable/sum(IncomeSourceTable), 1)
+
+pie(IncomeSourceTable,labels = IncomeSourcepiepercent, main = "Income source of applicant",
+    col = rainbow(length(IncomeSourceTable)))
+legend(1,1, c("Businessman", "Commercial associate",
+              "Maternity leave","Pensioner",
+              "State servant","Student","Unemployed", "Working"), 
+       cex = 0.6, fill = rainbow(length(IncomeSourceTable)))
+
+rm(IncomeSourcelabels)
+rm(IncomeSourcepiepercent)
+rm(IncomeSourcelabels)
+
+```
+
+```{r}
+#Family status of applicant
+
+levels(application_trainData$NAME_FAMILY_STATUS)
+FamilyStatuslabels = c("Civil marriage", "Married","Separated","Single / not married",
+                       "Unknown","Widow")
+FamilyStatusTable = table(application_trainData$NAME_FAMILY_STATUS)
+FamilyStatuspiepercent = round(100*FamilyStatusTable/sum(FamilyStatusTable), 1)
+
+pie(FamilyStatusTable,labels = FamilyStatuspiepercent, main = "Family Status",
+    col = rainbow(length(FamilyStatusTable)))
+legend(1,1, FamilyStatuslabels, 
+       cex = 0.6, fill = rainbow(length(FamilyStatusTable)))
+
+rm(FamilyStatusTable)
+rm(FamilyStatuspiepercent)
+rm(FamilyStatuslabels)
+```
+
+```{r}
+#Education of applicant
+
+levels(application_trainData$NAME_EDUCATION_TYPE)
+EducationTypelabels = c("Academic degree", "Higher education","Incomplete higher","Lower secondary",
+                        "Secondary / secondary special")
+EducationTypeTable = table(application_trainData$NAME_EDUCATION_TYPE)
+EducationTypepiepercent = round(100*EducationTypeTable/sum(EducationTypeTable), 1)
+
+pie(EducationTypeTable,labels = EducationTypepiepercent, main = "Education of loan applicant",
+    col = rainbow(length(EducationTypeTable)))
+legend(1,1, EducationTypelabels, 
+       cex = 0.6, fill = rainbow(length(EducationTypeTable)))
+
+rm(EducationTypeTable)
+rm(EducationTypepiepercent)
+rm(EducationTypelabels)
+```
+```{r}
+#Type of house, loan is requested for
+
+levels(application_trainData$NAME_HOUSING_TYPE)
+LoanForlabels = c("Co-op apartment", "House / apartment","Municipal apartment","Office apartment",
+                  "Rented apartment","With parents")
+LoanForTable = table(application_trainData$NAME_HOUSING_TYPE)
+LoanForpiepercent = round(100*LoanForTable/sum(LoanForTable), 1)
+
+pie(LoanForTable,labels = LoanForpiepercent, main = "Type of house, loan is applied for",
+    col = rainbow(length(LoanForTable)))
+legend(1,1, LoanForlabels, 
+       cex = 0.6, fill = rainbow(length(LoanForTable)))
+
+rm(LoanForTable)
+rm(LoanForpiepercent)
+rm(LoanForlabels)
+
+```
+
+```{r}
+rm(application_trainData)
+rm(IncomeSourceTable)
+rm(mytable)
+rm(piepercent)
+```
+

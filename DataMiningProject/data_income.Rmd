@@ -1,0 +1,91 @@
+---
+title: "DataMining"
+output: html_document
+---
+
+```{r set}
+knitr::opts_chunk$set(fig.width=12, fig.height=100) 
+library(tidyr)
+library(colorspace)
+library(dplyr)
+library(pander)
+```
+
+
+
+
+```{r}
+application_train1 <- read.csv("C:/Users/bahul dandona/Downloads/DataMining_Project/application_train.csv")
+```
+
+
+
+
+
+```{r pressure, echo=FALSE}
+
+application_train1 %>% summarise(amax= max(AMT_INCOME_TOTAL) , amin= min(AMT_INCOME_TOTAL), amean= mean(AMT_INCOME_TOTAL), amedian=median(AMT_INCOME_TOTAL), aiqr=IQR(AMT_INCOME_TOTAL))
+
+boxplot(application_train1$AMT_INCOME_TOTAL)
+```
+
+
+
+```{r}
+remove_outliers <- function(x, na.rm = TRUE, ...) {
+    qnt <- quantile(x, probs=c(.25, .75), na.rm = na.rm, ...)
+    H <- 1.5 * IQR(x, na.rm = na.rm)
+    y <- x
+    y[x < (qnt[1] - H)] <- NA
+    y[x > (qnt[2] + H)] <- NA
+     y
+}
+
+application_train1$AMT_INCOME_TOTAL <- remove_outliers(application_train1$AMT_INCOME_TOTAL)
+
+application_train1<- application_train1 %>% filter(!is.na(application_train1$AMT_INCOME_TOTAL))
+
+
+```
+
+
+```{r}
+application_train1 %>% summarise(amax= max(AMT_INCOME_TOTAL) , amin= min(AMT_INCOME_TOTAL), amean= mean(AMT_INCOME_TOTAL), amedian=median(AMT_INCOME_TOTAL), aiqr=IQR(AMT_INCOME_TOTAL))
+```
+
+
+```{r}
+application_train1$CREDIT_Income <- cut(application_train1$AMT_INCOME_TOTAL, breaks=c(0,50000,100000,200000,300000,337501), labels=c("Below 50000","50000-100000","100000-200000","200000-300000","Above 300000"))
+
+application_train1 <- application_train1 %>% filter(!is.na(CREDIT_Income),!is.na(TARGET),!is.na(NAME_INCOME_TYPE))
+```
+
+```{r}
+dataQ2 <- application_train1 %>% select(CREDIT_Income,TARGET,NAME_INCOME_TYPE)
+dataQ2 <- dataQ2 %>% mutate(TargetA= ifelse(TARGET==1,'YES','NO'))
+```
+
+```{r}
+sum_obs1 <- dataQ2 %>% 
+    group_by(CREDIT_Income, NAME_INCOME_TYPE,TargetA) %>% 
+    summarize(Sum = n()) %>% spread(TargetA,Sum,fill=0) %>% mutate(Sum = YES+NO, `% Facing payment difficulty` = round(YES/Sum*100, digits =1))
+```
+
+```{r}
+pandoc.table(sum_obs1, caption = "Fig. 1 - Percentage of customers having payment difficulty grouped by income amount and occupation", justify = "center" , split.cells = c(14,58,1,1,1,1))
+```
+
+
+```{r, out.width="10px", out.height="20px"}
+colnames(dataQ2)[3] <- "Occ:"
+
+ggplot(dataQ2, aes(x= CREDIT_Income, y = 1, fill = TargetA) , cex.axis=0.1)+ 
+     geom_bar(stat="identity", position = "fill") + 
+     facet_grid(`Occ:`~., labeller = label_both , scales = "free", space = "free") + 
+     scale_fill_manual(values = rainbow_hcl(2)) +
+     scale_y_continuous(labels = c("0%", "25%", "50%", "75%", "100%")) +
+     labs(title = "Proportion of Respondents Who have payment difficulty in paying loan by \n Income Amount and Their Occupation Type", fill = "Payment Difficulty:",x = "Income Amount", y = "% Respondents who have payment diificulty") +
+     theme(axis.text.x = element_text(angle = 60, hjust = 1), plot.title = element_text(hjust = 0.5))
+```
+
+
