@@ -1,4 +1,4 @@
-<h1 tyle="color:dark red;"Academic_projects_IITKanpur</h1> <br>
+<h1> style="color:dark red;"Academic_projects_IITKanpur</h1> <br>
 <h4 style="color:blue;">This repository contain projects done in IIT kanpur under the faculty of respective courses</h4>
 <ul>
   <li>Data mining</li>
